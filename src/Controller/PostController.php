@@ -29,4 +29,14 @@ class PostController extends Controller
 
         return $this->render('post/show.html.twig', ['post' => $post]);
     }
+
+    /**
+     * @Route("/preview/{id}", name="post_preview", methods="GET")
+     * @param Post $post
+     * @return Response
+     */
+    public function preview(Post $post): Response
+    {
+        return $this->render('post/show.html.twig', ['post' => $post]);
+    }
 }

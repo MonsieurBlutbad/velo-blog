@@ -2,22 +2,34 @@
 
 {% block title %}Velo Blog{% endblock %}
 
-{% block body %}
-    <h1>
-        Velo Blog
-    </h1>
-
-    {% if tours | length > 0 %}
-        <ul class="list">
-            {% for tour in tours %}
-                <li>
-                    <a href="{{ path('tour_show', {id: tour.id}) }}">{{ tour.title }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <div class="alert alert-danger">
-            Keine Touren gefunden.
+{% block bodyWrapper %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>
+                    Velo Blog
+                </h1>
+            </div>
         </div>
-    {% endif %}
+    </div>
+
+    <div class="container-fluid no-gutter">
+        {% if tours | length > 0 %}
+            <div class="full-width-list tour-list">
+                    {% for tour in tours %}
+                        <a class="list-item" href="{{ path('tour_show', {id: tour.id}) }}" style="background-image: url({{ vich_uploader_asset(tour, 'imageFile') }})">
+                            <div class="overlay"></div>
+                            <div class="meta">
+                                <h2 class="title">{{ tour.title }}</h2>
+                                <span class="date">{{ tour.startDate | date ('d.m.Y') }} - {{ tour.endDate | date ('d.m.Y') }} </span>
+                            </div>
+                        </a>
+                    {% endfor %}
+            </div>
+        {% else %}
+            <div class="list-item alert alert-danger">
+                Keine Touren gefunden.
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
