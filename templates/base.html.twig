@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+            <link rel="stylesheet" href="{{ asset('build/css/fancybox.css') }}">
+        {% endblock %}
+    </head>
+    <body class="{% block bodyClass %}default-layout{% endblock %}">
+        {% block bodyWrapper %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        {% block body %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+        {% block javascripts %}
+            <script type="text/javascript" src="{{ asset('build/js/jquery.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('build/js/jquery-ui.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('build/js/bootstrap.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>

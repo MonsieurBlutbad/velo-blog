@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tour{% endblock %}
+
+{% block body %}
+    <h1>
+        {{ tour.title }}
+    </h1>
+
+    {% if tour.activePosts | length > 0 %}
+        <ul class="list">
+            {% for post in tour.activePosts %}
+                <li>
+                    <a href="{{ path('post_show', {id: post.id}) }}">{{ post.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="alert alert-danger">
+            Keine Einträge gefunden.
+        </div>
+    {% endif %}
+{% endblock %}

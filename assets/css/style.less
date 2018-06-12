@@ -1,0 +1,35 @@
+@import './../lib/bower_components/bootstrap/less/bootstrap';
+
+@brand-primary: #04819e;
+@font-size-base: 14px;
+
+#map {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 25%;
+    height: 500px;
+}
+
+.subpage-layout {
+    header {
+        .container-fluid {
+            background-color: @brand-primary;
+            background-size: cover;
+            background-repeat-x: no-repeat;
+            background-repeat-y: no-repeat;
+            min-height: 400px;
+        }
+        .title-wrapper {
+            h4 {
+                font-size: 24px;
+            }
+            h1 {
+                font-size: 72px;
+            }
+        }
+    }
+    .content {
+        padding: 30px 0;
+    }
+}

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Velo Blog{% endblock %}
+
+{% block body %}
+    <h1>
+        Velo Blog
+    </h1>
+
+    {% if tours | length > 0 %}
+        <ul class="list">
+            {% for tour in tours %}
+                <li>
+                    <a href="{{ path('tour_show', {id: tour.id}) }}">{{ tour.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="alert alert-danger">
+            Keine Touren gefunden.
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% set fileName = field_options.base_path.media_file.uri_prefix ~ '/' ~ value %}
+
+{% if (fileName is is_image) %}
+
+    <a href="#" class="easyadmin-thumbnail" data-featherlight="#easyadmin-lightbox-{{ item.id }}" data-featherlight-close-on-click="anywhere">
+        <img src="{{ asset(fileName) }}">
+    </a>
+
+    <div id="easyadmin-lightbox-{{ item.id }}" class="easyadmin-lightbox">
+        <img src="{{ asset(fileName) }}">
+    </div>
+
+{% endif %}

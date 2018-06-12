@@ -1,0 +1,68 @@
+{% extends 'subpage_layout.html.twig' %}
+
+{% block title %}Post{% endblock %}
+
+{% block headerImage %}
+{% spaceless %}
+    {% if post.headerImageFileName %}
+        background-image: url({{ vich_uploader_asset(post, 'headerImageFile') }});
+    {% endif %}>
+{% endspaceless %}
+{% endblock %}
+
+{% block header %}
+    <div class="tour-name">
+        <h4>
+            <a href="{{ path('tour_show', {id: post.tour.id}) }}">
+                {{ post.tour.title }}
+            </a>
+        </h4>
+    </div>
+    <div class="post-date">
+        <small>{{ post.date | date ('d.m.Y') }}</small>
+    </div>
+    <div class="post-title">
+        <h1>
+            {{ post.title }}
+        </h1>
+    </div>
+    {% if post.gpxFileName %}
+        <div id="map" data-gpx-file="{{ vich_uploader_asset(post, 'gpxFile') }}"></div>
+    {% endif %}
+{% endblock %}
+q
+{% block content %}
+    <div>
+        {{ post.text | raw }}
+    </div>
+    {% if post.images | default %}
+        <div class="post-images-wrapper row">
+            <ul class="list list-unstyled">
+            {% for image in post.images %}
+                <li class="col-xs-12 col-sm-4 col-md-3">
+                    <a class="fancybox post-images"
+                       data-fancybox="gallery"
+                       rel="post-images-group"
+                       href="{{ vich_uploader_asset(image, 'file') }}"
+                       title="{{ image.title }}"
+                       data-caption="{% if image.title | default %}<h4>{{ image.title }}</h4    >{% endif %}{% if image.caption | default %}{{ image.caption }}{% endif %}"
+                    >
+                        <img src="{{ vich_uploader_asset(image, 'file') }}" alt="" class="img-responsive"/>
+                    </a>
+                </li>
+            {% endfor %}1
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% if post.gpxFileName %}
+        <script type="text/javascript" src="{{ asset('build/js/gpx-map.js') }}"></script>
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFs2FlwJJzUlVA5HP5OgqGgjfXZ8HPzGg&callback=initMap">
+        </script>
+    {% endif %}
+    <script type="text/javascript" src="{{ asset('build/js/fancybox-init.js') }}"></script>
+{% endblock %}
