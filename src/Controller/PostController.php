@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PostController extends Controller
 {
-     /**
+    /**
      * @Route("/{id}", name="post_show", methods="GET")
      * @param Post $post
      * @return Response
@@ -27,7 +27,7 @@ class PostController extends Controller
             return new RedirectResponse($this->generateUrl('index'));
         }
 
-        return $this->render('post/show.html.twig', ['post' => $post]);
+        return $this->renderPost($post);
     }
 
     /**
@@ -37,6 +37,38 @@ class PostController extends Controller
      */
     public function preview(Post $post): Response
     {
-        return $this->render('post/show.html.twig', ['post' => $post]);
+        return $this->renderPost($post);
+    }
+
+    /**
+     * @param Post $post
+     * @return Response
+     */
+    protected function renderPost(Post $post) : Response
+    {
+        $postsInTour = $post->getTour()->getActivePosts();
+        $postsInTourCount = $post->getTour()->getActivePosts()->count();
+
+        $lastPost = null;
+        $nextPost = null;
+        $i = 0;
+
+        while ($i < $postsInTourCount && (!$lastPost && !$nextPost)) {
+            if ($postsInTour->get($i) === $post) {
+                if ($i > 0) {
+                    $lastPost = $postsInTour->get($i - 1);
+                }
+                if ($i + 1 < $postsInTour) {
+                    $nextPost = $postsInTour->get($i + 1);
+                }
+            }
+            $i++;
+        }
+
+        return $this->render('post/show.html.twig', [
+            'post' => $post,
+            'lastPost' => $lastPost,
+            'nextPost' => $nextPost
+        ]);
     }
 }

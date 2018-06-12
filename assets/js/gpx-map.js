@@ -4,6 +4,44 @@
 function initMap() {
     var styles = [
         {
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "color": "#f5f5f5"
+                }
+            ]
+        },
+        {
+            "featureType": "landscape",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "color": "#8ab08b"
+                },
+                {
+                    "lightness": -7
+                }
+            ]
+        },
+        {
+            "featureType": "landscape.natural.terrain",
+            "elementType": "geometry.fill",
+            "stylers": [
+                {
+                    "color": "#60a672"
+                }
+            ]
+        },
+        {
+            "featureType": "administrative",
+            "elementType": "labels.text.fill",
+            "stylers": [
+                {
+                    "color": "#000000"
+                }
+            ]
+        },
+        {
             "featureType": "administrative.country",
             "elementType": "geometry.stroke",
             "stylers": [
@@ -86,7 +124,8 @@ function initMap() {
             mapTypeIds: ['Styled']
         },
         zoom: 4,
-        disableDefaultUI: true,
+        mapTypeControl: false,
+        streetViewControl: false,
         mapTypeId: 'Styled'
     };
 
@@ -114,8 +153,8 @@ function initMap() {
             var poly = new google.maps.Polyline({
                 // use your own style here
                 path: points,
-                strokeColor: "#FF00AA",
-                strokeOpacity: .7,
+                strokeColor: "#f91100",
+                strokeOpacity: 0.8,
                 strokeWeight: 4
             });
 

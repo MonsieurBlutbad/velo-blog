@@ -61,6 +61,14 @@ class Tour
      */
     private $image;
 
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @var string
+     */
+    private $imageStyle;
+
     /**
      * @var Post[]
      *
@@ -147,6 +155,22 @@ class Tour
     public function setActive(bool $active)
     {
         $this->active = $active;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImageStyle()
+    {
+        return $this->imageStyle;
+    }
+
+    /**
+     * @param mixed $imageStyle
+     */
+    public function setImageStyle($imageStyle)
+    {
+        $this->imageStyle = $imageStyle;
     }
 
     /**

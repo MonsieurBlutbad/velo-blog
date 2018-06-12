@@ -16,15 +16,15 @@
     <div class="container-fluid no-gutter">
         {% if tours | length > 0 %}
             <div class="full-width-list tour-list">
-                    {% for tour in tours %}
-                        <a class="list-item" href="{{ path('tour_show', {id: tour.id}) }}" style="background-image: url({{ vich_uploader_asset(tour, 'imageFile') }})">
-                            <div class="overlay"></div>
-                            <div class="meta">
-                                <h2 class="title">{{ tour.title }}</h2>
-                                <span class="date">{{ tour.startDate | date ('d.m.Y') }} - {{ tour.endDate | date ('d.m.Y') }} </span>
-                            </div>
-                        </a>
-                    {% endfor %}
+                {% for tour in tours %}
+                    <a class="list-item  background-image background-image-large align-center" href="{{ path('tour_show', {id: tour.id}) }}" style="background-image: url({{ vich_uploader_asset(tour, 'imageFile') }}); {% if tour.imageStyle %}{{ post.headerImageStyle }}{% endif %} }}">
+                        <div class="overlay"></div>
+                        <div class="meta">
+                            <h2 class="title">{{ tour.title }}</h2>
+                            <span class="date">{{ tour.startDate | date ('d.m.Y') }} - {{ tour.endDate | date ('d.m.Y') }} </span>
+                        </div>
+                    </a>
+                {% endfor %}
             </div>
         {% else %}
             <div class="list-item alert alert-danger">

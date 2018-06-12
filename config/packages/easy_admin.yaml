@@ -17,6 +17,7 @@ easy_admin:
                     - { property: 'active', label: 'Aktiviert' }
                     - { property: 'date', label: 'Datum', type_options: { widget: 'single_text' } }
                     - { property: 'headerImageFile', label: 'Header Bild', type: 'file', base_path: '%vich_uploader.mappings%' }
+                    - { property: 'headerImageStyle', label: 'Header Bild Style Parameter' }
                     - { property: 'text', label: 'Inhalt', type_options: { attr: {'class' : 'form-control tinymce'}} }
                     - { type: 'divider' }
                     - { property: 'gpxFile', label: 'GPX Datei', type: 'file', base_path: '%vich_uploader.mappings%' }
@@ -51,6 +52,7 @@ easy_admin:
                     - { property: 'text', label: 'Inhalt', type_options: { attr: {'class' : 'form-control tinymce'}} }
                     - { type: 'divider' }
                     - { property: 'imageFile', label: 'Bild', type: 'file', base_path: '%vich_uploader.mappings%' }
+                    - { property: 'imageStyle', label: 'Bild Style Parameter' }
                     - { type: 'divider' }
             list:
                 fields:

@@ -10,8 +10,8 @@
 
 {% block bodyWrapper %}
     <header>
-        <div class="container-fluid" style="{% if post.headerImageFileName %}background-image: url({{ vich_uploader_asset(post, 'headerImageFile') }});{% endif %}>">
-            <div class="title-wrapper container">
+        <div class="container-fluid  background-image background-image-large" style="{% if post.headerImageFileName %}background-image: url({{ vich_uploader_asset(post, 'headerImageFile') }});{% endif %} {% if post.headerImageStyle %}{{ post.headerImageStyle }}{% endif %}">
+            <div class="meta container">
                 <div class="row">
                     <div class="col-xs-8">
                         <div class="tour-name">
@@ -149,6 +149,28 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="container-fluid no-gutter">
+        {% if nextPost | default %}
+            <a class="list-item background-image background-image-medium align-center" href="{{ path('post_show', {id: nextPost.id}) }}" style="background-image: url({{ vich_uploader_asset(nextPost, 'headerImageFile') }}); {% if nextPost.headerImageStyle %}{{ nextPost.headerImageStyle }}{% endif %}">
+                <div class="overlay"></div>
+                <div class="next-post post-navi"></div>
+                <div class="meta">
+                    <h2 class="title">{{ nextPost.title }}</h2>
+                    <span class="date">{{ nextPost.date | date ('d.m.Y') }}</span>
+                </div>
+            </a>
+        {% endif %}
+        {% if lastPost | default %}
+            <a class="list-item background-image background-image-medium align-center" href="{{ path('post_show', {id: lastPost.id}) }}" style="background-image: url({{ vich_uploader_asset(lastPost, 'headerImageFile') }}); {% if lastPost.headerImageStyle %}{{ lastPost.headerImageStyle }}{% endif %}">
+                <div class="overlay"></div>
+                <div class="last-post post-navi"></div>
+                <div class="meta">
+                    <h2 class="title">{{ lastPost.title }}</h2>
+                    <span class="date">{{ lastPost.date | date ('d.m.Y') }}</span>
+                </div>
+            </a>
+        {% endif %}
     </div>
 {% endblock %}
 

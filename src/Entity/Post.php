@@ -42,7 +42,7 @@ class Post
      *
      * @ORM\Column(type="boolean", options={"default" = false}))
      */
-    private $active;
+    private $active = false;
 
     /**
      * @ORM\Column(type="date")
@@ -53,29 +53,21 @@ class Post
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     *
-     * @Assert\NotBlank()
      */
     private $distance;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     *
-     * @Assert\NotBlank()
      */
     private $ascent;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     *
-     * @Assert\NotBlank()
      */
     private $descent;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     *
-     * @Assert\NotBlank()
      */
     private $duration;
 
@@ -114,6 +106,15 @@ class Post
      * @var string
      */
     private $headerImageFileName;
+
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @var string
+     */
+    private $headerImageStyle;
+
 
     /**
      * @var Tour
@@ -332,6 +333,22 @@ class Post
     /**
      * @return mixed
      */
+    public function getHeaderImageStyle()
+    {
+        return $this->headerImageStyle;
+    }
+
+    /**
+     * @param mixed $headerImageStyle
+     */
+    public function setHeaderImageStyle($headerImageStyle)
+    {
+        $this->headerImageStyle = $headerImageStyle;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getDistance()
     {
         return $this->distance;
@@ -396,7 +413,7 @@ class Post
     /**
      * @return Tour
      */
-    public function getTour(): Tour
+    public function getTour(): ?Tour
     {
         return $this->tour;
     }

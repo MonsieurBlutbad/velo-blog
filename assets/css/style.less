@@ -11,71 +11,99 @@ body {
     content: "\f1fb";
 }
 
-.post-detail {
-    header {
-        .container-fluid {
-            background-color: #ccc;
-            background-size: cover;
-            background-repeat: no-repeat;
-            min-height: 30vw;
-            display: flex;
-            justify-content: flex-end;
-            flex-direction: column;
+.background-image {
+    background-color: #ccc;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    position: relative;
+    &.align-center {
+        align-items: center;
+    }
+    &.background-image-small {
+        min-height: 10vw;
+    }
+    &.background-image-medium {
+        min-height: 20vw;
+    }
+    &.background-image-large {
+        min-height: 30vw;
+    }
+    .overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #000;
+        opacity: 0;
+    }
+    .meta {
+        z-index: 999;
+        color: white;
+        text-shadow: 0px 1px 5px rgba(0,0,0,0.4);
+        margin-bottom: 20px;
+        @media (max-width: @screen-xs-max) {
+            margin-left: 0;
+            margin-right: 0;
         }
-        .title-wrapper {
-            z-index: 999;
-            color: white;
-            text-shadow: 0px 1px 5px rgba(0,0,0,0.4);
-            margin-bottom: 20px;
-            @media (max-width: @screen-xs-max) {
-                margin-left: 0;
-                margin-right: 0;
-            }
-            .tour-name {
-                a {
-                    color: white;
-                    &:hover {
-                        text-decoration: none;
-                    }
+        .tour-name {
+            a {
+                color: #b9b9b9;
+                &:hover {
+                    text-decoration: none;
                 }
             }
-            h4 {
-                font-size: 24px;
-            }
-            h1 {
-                font-size: 72px;
+        }
+        .post-date {
+            color: #b9b9b9
+        }
+        h1 {
+            font-size: 48px;
+            margin: 5px 0;
+            @media (max-width: @screen-xs-max) {
+                font-size: 32px;
             }
         }
     }
-    .meta-list {
-        margin-top: 7px;
-        min-height: 20px;
-        .list-inline;
-        li {
-            i {
-                margin-right: 5px;
-            }
-        }
-    }
-    #map {
-        position: absolute;
-        right: 25px;
-        top: 25px;
-        width: 30vw;
-        height: 30vw;
-        border: 1px solid #b9b9b9;
-        z-index: 9999;
-    }
-    .content {
-        padding: 10px 0;
-    }
-    .post-images-wrapper {
-        margin-top: 40px;
-        li {
-            margin-bottom: 30px;
+
+}
+
+
+.meta-list {
+    margin-top: 7px;
+    min-height: 20px;
+    .list-inline;
+    li {
+        i {
+            margin-right: 5px;
         }
     }
 }
+
+#map {
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    width: 30vw;
+    height: 30vw;
+    border: 1px solid #b9b9b9;
+    z-index: 9999;
+}
+
+.content {
+    padding: 10px 0;
+}
+
+.post-images-wrapper {
+    margin-top: 40px;
+    li {
+        margin-bottom: 30px;
+    }
+}
+
 
 .no-gutter {
     padding-left: 0;
@@ -86,48 +114,11 @@ body {
     list-style: none;
     padding: 0;
     margin: 0;
-    &.post-list .list-item {
-        height: 20vw;
-    }
-    .list-item {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        flex-direction: column;
-        width: 100%;
-        height: 30vw;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-color: #ccc;
-        background-position: 50% 80%;
-        position: relative;
-        .overlay {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #000;
-            opacity: 0;
-        }
-        .meta {
-            text-align: center;
-            z-index: 999;
-            color: white;
-            text-shadow: 0px 1px 5px rgba(0,0,0,0.4);
-            margin-bottom: 20px;
-            .title {
-                font-size: 42px;
-                margin: 0;
-            }
-        }
+    a.list-item {
         &:hover {
             text-decoration: none;
             .overlay {
                 opacity: 0.3;
-            }
-            .tour-meta {
-                text-shadow: none;
             }
         }
     }

@@ -3,21 +3,21 @@
 {% block title %}{{ tour.title }}{% endblock %}
 
 {% block bodyWrapper %}
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <h1>
-                    {{ tour.title }}
-                </h1>
+    <header>
+        <div class="container-fluid background-image background-image-small align-center" style="background-image: url({{ vich_uploader_asset(tour, 'imageFile') }}); {% if tour.imageStyle %}{{ tour.imageStyle }}{% endif %}">
+            <div class="meta">
+                <h2 class="title">{{ tour.title }}</h2>
+                <span class="date">{{ tour.startDate | date ('d.m.Y') }} - {{ tour.endDate | date ('d.m.Y') }} </span>
             </div>
         </div>
-    </div>
+    </header>
+    <hr>
 
     <div class="container-fluid no-gutter">
         {% if tour.activePosts | length > 0 %}
             <div class="full-width-list post-list">
-                {% for post in tour.activePosts %}
-                    <a class="list-item" href="{{ path('post_show', {id: post.id}) }}" style="background-image: url({{ vich_uploader_asset(post, 'headerImageFile') }})">
+                {% for post in tour.activePosts | reverse%}
+                    <a class="list-item background-image background-image-medium align-center" href="{{ path('post_show', {id: post.id}) }}" style="background-image: url({{ vich_uploader_asset(post, 'headerImageFile') }}); {% if post.headerImageStyle %}{{ post.headerImageStyle }}{% endif %}">
                         <div class="overlay"></div>
                         <div class="meta">
                             <h2 class="title">{{ post.title }}</h2>
