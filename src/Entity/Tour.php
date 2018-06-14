@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TourRepository")
@@ -26,6 +27,12 @@ class Tour
     private $title;
 
     /**
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
+
+    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $text;
@@ -35,7 +42,7 @@ class Tour
      *
      * @ORM\Column(type="boolean", options={"default" = false}))
      */
-    private $active;
+    private $active = false;
 
     /**
      * @ORM\Column(type="date", nullable=true)
@@ -123,6 +130,22 @@ class Tour
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
     }
 
     /**

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Post{% endblock %}
+{% block title %}Velo Blog: {{ post.tour.title }}{% endblock %}
 
 {% block bodyClass %}
     {% spaceless %}
@@ -8,35 +8,47 @@
     {% endspaceless %}
 {% endblock %}
 
-{% block bodyWrapper %}
-    <header>
-        <div class="container-fluid  background-image background-image-large" style="{% if post.headerImageFileName %}background-image: url({{ vich_uploader_asset(post, 'headerImageFile') }});{% endif %} {% if post.headerImageStyle %}{{ post.headerImageStyle }}{% endif %}">
-            <div class="meta container">
-                <div class="row">
-                    <div class="col-xs-8">
-                        <div class="tour-name">
-                            <a href="{{ path('tour_show', {id: post.tour.id}) }}">
-                                <small>
-                                    {{ post.tour.title }}
-                                </small>
-                            </a>
-                        </div>
-                        <div class="post-title">
-                            <h1>
-                                {{ post.title }}
-                            </h1>
-                        </div>
-                        <div class="post-date">
-                            <small>{{ post.date | date ('d.m.Y') }}</small>
-                        </div>
+{% block header %}
+    {% if isPreview %}
+        <div id="preview" style="position:absolute; top:15px; left: 15px; z-index: 999999;">
+            <div class="alert alert-danger">
+                <i class="glyphicon glyphicon-eye-open"></i> <strong>Preview</strong>
+            </div>
+        </div>
+    {% endif %}
+    <div class="background-image background-image-large"
+         style="{% if post.headerImageFileName %}background-image: url({{ vich_uploader_asset(post, 'headerImageFile') }});{% endif %} {% if post.headerImageStyle %}{{ post.headerImageStyle }}{% endif %}">
+        <div class="meta container">
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="tour-name">
+                        <a href="{{ path('tour_show', {slug: post.tour.slug}) }}">
+                            <small class="backdrop">
+                                {{ post.tour.title }}
+                            </small>
+                        </a>
+                    </div>
+                    <div class="post-title">
+                        <h1 class="title">
+                            <span class="backdrop">{{ post.title }}</span>
+                        </h1>
+                        {% if post.subTitle | default %}
+                            <p class="subtitle">
+                                <span class="backdrop">{{ post.subTitle }}</span>
+                            </p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
-            {% if post.gpxFileName %}
-                <div id="map" data-gpx-file="{{ vich_uploader_asset(post, 'gpxFile') }}"></div>
-            {% endif %}
+            <small class="date backdrop">{{ post.date | date ('d.m.Y') }}</small>
         </div>
-    </header>
+        {% if post.gpxFileName %}
+            <div id="map" data-gpx-file="{{ vich_uploader_asset(post, 'gpxFile') }}"></div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block content %}
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
@@ -57,92 +69,25 @@
                 <div class="content">
                     <div class="row">
                         <div class="col-md-9">
-                        {{ post.text | raw }}
+                            {{ post.text | raw }}
                         </div>
                     </div>
                     {% if post.images | default %}
                         <div class="post-images-wrapper row">
                             <ul class="list list-unstyled">
                                 {% for image in post.images %}
-                                <li class="col-xs-12 col-sm-4 col-md-3">
-                                    <a class="fancybox post-images"
-                                       data-fancybox="gallery"
-                                       rel="post-images-group"
-                                       href="{{ vich_uploader_asset(image, 'file') }}"
-                                       title="{{ image.title }}"
-                                       data-caption="{% if image.title | default %}<h4>{{ image.title }}</h4    >{% endif %}{% if image.caption | default %}{{ image.caption }}{% endif %}"
-                                    >
-                                        <img src="{{ vich_uploader_asset(image, 'file') }}" alt="" class="img-responsive"/>
-                                    </a>
-                                </li>
-                                {% endfor %}
-                                {% for image in post.images %}
-                                    <li class="col-xs-12 col-sm-4 col-md-3">
+                                    <li class="col-xs-6 col-sm-4 col-md-3">
                                         <a class="fancybox post-images"
                                            data-fancybox="gallery"
                                            rel="post-images-group"
                                            href="{{ vich_uploader_asset(image, 'file') }}"
                                            title="{{ image.title }}"
-                                           data-caption="{% if image.title | default %}<h4>{{ image.title }}</h4    >{% endif %}{% if image.caption | default %}{{ image.caption }}{% endif %}"
+                                           data-caption="{% if image.title | default %}<h4>{{ image.title }}</h4>{% endif %}{% if image.caption | default %}{{ image.caption }}{% endif %}"
                                         >
                                             <img src="{{ vich_uploader_asset(image, 'file') }}" alt="" class="img-responsive"/>
                                         </a>
                                     </li>
                                 {% endfor %}
-                                {% for image in post.images %}
-                                    <li class="col-xs-12 col-sm-4 col-md-3">
-                                        <a class="fancybox post-images"
-                                           data-fancybox="gallery"
-                                           rel="post-images-group"
-                                           href="{{ vich_uploader_asset(image, 'file') }}"
-                                           title="{{ image.title }}"
-                                           data-caption="{% if image.title | default %}<h4>{{ image.title }}</h4    >{% endif %}{% if image.caption | default %}{{ image.caption }}{% endif %}"
-                                        >
-                                            <img src="{{ vich_uploader_asset(image, 'file') }}" alt="" class="img-responsive"/>
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                                {% for image in post.images %}
-                                    <li class="col-xs-12 col-sm-4 col-md-3">
-                                        <a class="fancybox post-images"
-                                           data-fancybox="gallery"
-                                           rel="post-images-group"
-                                           href="{{ vich_uploader_asset(image, 'file') }}"
-                                           title="{{ image.title }}"
-                                           data-caption="{% if image.title | default %}<h4>{{ image.title }}</h4    >{% endif %}{% if image.caption | default %}{{ image.caption }}{% endif %}"
-                                        >
-                                            <img src="{{ vich_uploader_asset(image, 'file') }}" alt="" class="img-responsive"/>
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                                {% for image in post.images %}
-                                    <li class="col-xs-12 col-sm-4 col-md-3">
-                                        <a class="fancybox post-images"
-                                           data-fancybox="gallery"
-                                           rel="post-images-group"
-                                           href="{{ vich_uploader_asset(image, 'file') }}"
-                                           title="{{ image.title }}"
-                                           data-caption="{% if image.title | default %}<h4>{{ image.title }}</h4    >{% endif %}{% if image.caption | default %}{{ image.caption }}{% endif %}"
-                                        >
-                                            <img src="{{ vich_uploader_asset(image, 'file') }}" alt="" class="img-responsive"/>
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                                {% for image in post.images %}
-                                    <li class="col-xs-12 col-sm-4 col-md-3">
-                                        <a class="fancybox post-images"
-                                           data-fancybox="gallery"
-                                           rel="post-images-group"
-                                           href="{{ vich_uploader_asset(image, 'file') }}"
-                                           title="{{ image.title }}"
-                                           data-caption="{% if image.title | default %}<h4>{{ image.title }}</h4    >{% endif %}{% if image.caption | default %}{{ image.caption }}{% endif %}"
-                                        >
-                                            <img src="{{ vich_uploader_asset(image, 'file') }}" alt="" class="img-responsive"/>
-                                        </a>
-                                    </li>
-                                {% endfor %}
-
-
                             </ul>
                         </div>
                     {% endif %}
@@ -150,28 +95,46 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid no-gutter">
-        {% if nextPost | default %}
-            <a class="list-item background-image background-image-medium align-center" href="{{ path('post_show', {id: nextPost.id}) }}" style="background-image: url({{ vich_uploader_asset(nextPost, 'headerImageFile') }}); {% if nextPost.headerImageStyle %}{{ nextPost.headerImageStyle }}{% endif %}">
-                <div class="overlay"></div>
-                <div class="next-post post-navi"></div>
-                <div class="meta">
-                    <h2 class="title">{{ nextPost.title }}</h2>
-                    <span class="date">{{ nextPost.date | date ('d.m.Y') }}</span>
-                </div>
-            </a>
-        {% endif %}
-        {% if lastPost | default %}
-            <a class="list-item background-image background-image-medium align-center" href="{{ path('post_show', {id: lastPost.id}) }}" style="background-image: url({{ vich_uploader_asset(lastPost, 'headerImageFile') }}); {% if lastPost.headerImageStyle %}{{ lastPost.headerImageStyle }}{% endif %}">
-                <div class="overlay"></div>
-                <div class="last-post post-navi"></div>
-                <div class="meta">
-                    <h2 class="title">{{ lastPost.title }}</h2>
-                    <span class="date">{{ lastPost.date | date ('d.m.Y') }}</span>
-                </div>
-            </a>
-        {% endif %}
+{% endblock %}
+
+{% block footer %}
+    <div class="row post-navi">
+        <div class="col-sm-6">
+            {% if lastPost | default %}
+                <a class="list-item list-item-last-post background-image background-image-medium align-center" href="{{ path('post_show', {tour_slug: lastPost.tour.slug, post_slug: lastPost.slug}) }}"
+                   style="background-image: url({{ vich_uploader_asset(lastPost, 'headerImageFile') }}); {% if lastPost.headerImageStyle %}{{ lastPost.headerImageStyle }}{% endif %}">
+                    <div class="overlay"></div>
+                    <div class="last-post">
+                        <i class="glyphicon glyphicon-arrow-left"></i>
+                    </div>
+                    <div class="meta">
+                        <h2 class="title backdrop">{{ lastPost.title }}</h2>
+                        <span class="date backdrop">{{ lastPost.date | date ('d.m.Y') }}</span>
+                    </div>
+                </a>
+            {% endif %}
+        </div>
+        <div class="col-sm-6">
+            {% if nextPost | default %}
+                <a class="list-item list-item-next-post background-image background-image-medium align-center" href="{{ path('post_show', {tour_slug: nextPost.tour.slug, post_slug: nextPost.slug}) }}"
+                   style="background-image: url({{ vich_uploader_asset(nextPost, 'headerImageFile') }}); {% if nextPost.headerImageStyle %}{{ nextPost.headerImageStyle }}{% endif %}">
+                    <div class="overlay"></div>
+                    <div class="next-post">
+                        <i class="glyphicon glyphicon-arrow-right"></i>
+                    </div>
+                    <div class="meta">
+                        <h2 class="title backdrop">{{ nextPost.title }}</h2>
+                        <span class="date backdrop">{{ nextPost.date | date ('d.m.Y') }}</span>
+                    </div>
+                </a>
+            {% endif %}
+        </div>
     </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/css/fancybox.css') }}">
 {% endblock %}
 
 {% block javascripts %}

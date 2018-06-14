@@ -2,10 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Post;
 use App\Entity\Tour;
-use App\Form\PostType;
-use App\Repository\PostRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,13 +16,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class TourController extends Controller
 {
     /**
-     * @Route("/{id}", name="tour_show", methods="GET")
+     * @Route("/{slug}", name="tour_show", methods="GET")
+     * @ParamConverter("tour", options={"mapping": {"slug": "slug"}})
      * @param Tour $tour
      * @return Response
      */
-    public function show(Tour $tour): Response
+    public function show(Request $request, Tour $tour): Response
     {
-        if (!$tour->isActive()) {
+        if (!$tour->isActive() && !$request->get('preview')) {
             return new RedirectResponse($this->generateUrl('index'));
         }
 

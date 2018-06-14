@@ -14,6 +14,7 @@ easy_admin:
                 fields:
                     - { property: 'tour', label: 'Tour' }
                     - { property: 'title', label: 'Titel' }
+                    - { property: 'subTitle', label: 'Untertitel' }
                     - { property: 'active', label: 'Aktiviert' }
                     - { property: 'date', label: 'Datum', type_options: { widget: 'single_text' } }
                     - { property: 'headerImageFile', label: 'Header Bild', type: 'file', base_path: '%vich_uploader.mappings%' }

@@ -22,6 +22,8 @@ Encore
     .addEntry('js/fancybox-init', './assets/js/fancybox-init.js' )
     .addEntry('js/gpx-map', './assets/js/gpx-map.js' )
 
+    .addEntry('logo', './assets/img/logo.png')
+
     // uncomment if you use Sass/SCSS files
     // .enableSassLoader()
 

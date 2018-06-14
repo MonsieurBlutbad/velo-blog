@@ -1,35 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ tour.title }}{% endblock %}
+{% block title %}Velo Blog: {{ tour.title }}{% endblock %}
 
-{% block bodyWrapper %}
-    <header>
-        <div class="container-fluid background-image background-image-small align-center" style="background-image: url({{ vich_uploader_asset(tour, 'imageFile') }}); {% if tour.imageStyle %}{{ tour.imageStyle }}{% endif %}">
-            <div class="meta">
-                <h2 class="title">{{ tour.title }}</h2>
-                <span class="date">{{ tour.startDate | date ('d.m.Y') }} - {{ tour.endDate | date ('d.m.Y') }} </span>
-            </div>
+{% block header %}
+    <div class="background-image background-image-large align-center" style="background-image: url({{ vich_uploader_asset(tour, 'imageFile') }}); {% if tour.imageStyle %}{{ tour.imageStyle }}{% endif %}">
+        <div class="meta">
+            <h1 class="tour-title title"><span class="backdrop">{{ tour.title }}</span></h1>
+            <span class="date backdrop">{{ tour.startDate | date ('d.m.Y') }} - {{ tour.endDate | date ('d.m.Y') }}</span>
         </div>
-    </header>
-    <hr>
+    </div>
+{% endblock %}
 
-    <div class="container-fluid no-gutter">
+{% block content %}
+    <div class="row">
         {% if tour.activePosts | length > 0 %}
-            <div class="full-width-list post-list">
-                {% for post in tour.activePosts | reverse%}
-                    <a class="list-item background-image background-image-medium align-center" href="{{ path('post_show', {id: post.id}) }}" style="background-image: url({{ vich_uploader_asset(post, 'headerImageFile') }}); {% if post.headerImageStyle %}{{ post.headerImageStyle }}{% endif %}">
-                        <div class="overlay"></div>
-                        <div class="meta">
-                            <h2 class="title">{{ post.title }}</h2>
-                            <span class="date">{{ post.date | date ('d.m.Y') }}</span>
-                        </div>
-                    </a>
+            <div class="post-list flex-list">
+                {% for post in tour.activePosts | reverse %}
+                    <div class="{% if loop.first %}col-xs-12{% else %}col-xs-6 col-sm-6 col-md-4{% endif %} flex-item">
+                        <a class="list-item background-image background-image-medium align-center" href="{{ path('post_show', {tour_slug: post.tour.slug, post_slug: post.slug}) }}" style="background-image: url({{ vich_uploader_asset(post, 'headerImageFile') }}); {% if post.headerImageStyle %}{{ post.headerImageStyle }}{% endif %}">
+                            <div class="overlay"></div>
+                            <div class="meta">
+                                <h2 class="title"><span class="backdrop">{{ post.title }}</span></h2>
+                                <span class="date backdrop">{{ post.date | date ('d.m.Y') }}</span>
+                            </div>
+                        </a>
+                    </div>
                 {% endfor %}
             </div>
         {% else %}
-            <div class="list-item alert alert-danger">
-                Keine Einträge gefunden.
+            <div class="col-xs-12">
+                <div class="list-item alert alert-danger">
+                    Keine Einträge gefunden.
+                </div>
             </div>
         {% endif %}
     </div>
 {% endblock %}
+

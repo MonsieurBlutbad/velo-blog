@@ -1,25 +1,51 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Velo Blog{% endblock %}</title>
         {% block stylesheets %}
             <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
-
             <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
-            <link rel="stylesheet" href="{{ asset('build/css/fancybox.css') }}">
         {% endblock %}
     </head>
     <body class="{% block bodyClass %}default-layout{% endblock %}">
-        {% block bodyWrapper %}
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12">
-                        {% block body %}{% endblock %}
+        {% block headerWrapper %}
+            <header class="{% block headerClass %}container-fluid no-gutter{% endblock %}">
+                <div class="container heeader-nav">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h5>
+                                <a href="{{ path('index') }}" class="logo">
+                                    <img src="{{ asset('build/images/logo.png') }}" />
+                                    Velo Blog
+                                </a>
+                            </h5>
+                        </div>
                     </div>
                 </div>
+                {% block header %}{% endblock %}
+            </header>
+        {% endblock %}
+
+        <div class="clearfix"></div>
+
+        {% block contentWrapper %}
+            <div class="content {% block contentClass %}container-fluid{% endblock %}">
+                {% block content %}{% endblock %}
             </div>
         {% endblock %}
+
+        <div class="clearfix"></div>
+
+        {% block footerWrapper %}
+            <footer class="{% block footerClass %}container-fluid{% endblock %}">
+                {% block footer %}{% endblock %}
+            </footer>
+        {% endblock %}
+
+
         {% block javascripts %}
             <script type="text/javascript" src="{{ asset('build/js/jquery.js') }}"></script>
             <script type="text/javascript" src="{{ asset('build/js/jquery-ui.js') }}"></script>

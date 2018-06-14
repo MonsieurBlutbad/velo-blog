@@ -1,14 +1,32 @@
 @import './../lib/bower_components/bootstrap/less/bootstrap';
 
-@brand-primary: #04819e;
+@brand-primary: #96adb1;
 @font-size-base: 14px;
+@grid-gutter-width: 10px;
 
 body {
     font-family: 'Nanum Gothic', sans-serif;
     letter-spacing: 1px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
+
 .icon-uphill:before {
     content: "\f1fb";
+}
+
+.flex-list {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    .flex-item {
+        display: flex;
+        flex-flow: column nowrap;
+    }
+    .list-item {
+        margin-bottom: @grid-gutter-width;
+    }
 }
 
 .background-image {
@@ -23,13 +41,13 @@ body {
         align-items: center;
     }
     &.background-image-small {
-        min-height: 10vw;
-    }
-    &.background-image-medium {
         min-height: 20vw;
     }
-    &.background-image-large {
+    &.background-image-medium {
         min-height: 30vw;
+    }
+    &.background-image-large {
+        min-height: 40vw;
     }
     .overlay {
         position: absolute;
@@ -45,33 +63,56 @@ body {
         color: white;
         text-shadow: 0px 1px 5px rgba(0,0,0,0.4);
         margin-bottom: 20px;
+        padding: 10px;
         @media (max-width: @screen-xs-max) {
             margin-left: 0;
             margin-right: 0;
         }
+        .title {
+            font-size: 36px;
+            padding: 2px 4px;
+            margin: 0;
+            &.tour-title {
+                font-size: 48px;
+                margin: 5px 0;
+            }
+            @media (max-width: @screen-sm-max) {
+                font-size: 24px;
+                &.tour-title {
+                    font-size: 24px;
+                }
+            }
+            @media (max-width: @screen-xs-max) {
+                font-size: 18px;
+                margin-top: 14px;
+                &.tour-title {
+                    font-size: 18px;
+                }
+            }
+        }
         .tour-name {
             a {
-                color: #b9b9b9;
                 &:hover {
                     text-decoration: none;
                 }
             }
         }
-        .post-date {
-            color: #b9b9b9
-        }
-        h1 {
-            font-size: 48px;
-            margin: 5px 0;
+        .date {
+            position: absolute;
+            top: 10px;
+            right: 10px;
             @media (max-width: @screen-xs-max) {
-                font-size: 32px;
+                top: 5px;
+                right: 5px;
+                font-size: 10px;
             }
         }
     }
 
 }
-
-
+.backdrop {
+    background: rgba(0, 0, 0, 0.2);
+}
 .meta-list {
     margin-top: 7px;
     min-height: 20px;
@@ -83,6 +124,22 @@ body {
     }
 }
 
+.col-xs-6 .background-image .meta .title {
+    @media (max-width: @screen-xs-max) {
+        font-size: 14px;
+    }
+}
+
+.logo {
+    color: #6b8a90;
+    &:hover {
+        text-decoration: none;
+    }
+    img {
+        height: 20px;
+        margin-right: 4px;
+    }
+}
 #map {
     position: absolute;
     right: 25px;
@@ -94,16 +151,27 @@ body {
 }
 
 .content {
-    padding: 10px 0;
+    margin-top: @grid-gutter-width;
+    margin-bottom: @grid-gutter-width;
+    flex: 1;
+    width: 100%;
 }
 
 .post-images-wrapper {
     margin-top: 40px;
     li {
-        margin-bottom: 30px;
+        margin-bottom: @grid-gutter-width;
     }
 }
-
+.post-title {
+    h1 {
+        margin-bottom: 0;
+    }
+    .subtitle {
+        font-size: 10px;
+    }
+    margin-bottom: 5px;
+}
 
 .no-gutter {
     padding-left: 0;
@@ -114,12 +182,67 @@ body {
     list-style: none;
     padding: 0;
     margin: 0;
-    a.list-item {
-        &:hover {
-            text-decoration: none;
-            .overlay {
-                opacity: 0.3;
+}
+
+a.list-item {
+    &:hover {
+        text-decoration: none;
+        .overlay {
+            opacity: 0.3;
+        }
+    }
+}
+
+.no-margin-top {
+    margin-top: 0!important;
+}
+
+.no-margin-bottom {
+    margin-bottom: 0!important;
+}
+
+header {
+    width: 100%;
+    .header-nav {
+        margin-bottom: @grid-gutter-width;
+    }
+}
+
+footer {
+    padding-top: @grid-gutter-width;
+    padding-bottom: @grid-gutter-width;
+    background-color: #e7eff1;
+    width: 100%;
+}
+
+.post-navi {
+    .list-item {
+        position: relative;
+        &.list-item-last-post {
+            .meta {
+                margin-left: 40px !important;
             }
+        }
+        &.list-item-next-post {
+            .meta {
+                margin-right: 40px !important;
+            }
+        }
+        .next-post,
+        .last-post {
+            position: absolute;
+            bottom: 15%;
+            i {
+                font-size: 24px;
+                color: white;
+            }
+
+        }
+        .next-post {
+            right: 10px;
+        }
+        .last-post {
+            left: 10px;
         }
     }
 }
